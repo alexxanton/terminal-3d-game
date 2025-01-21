@@ -8,18 +8,27 @@ public class Player {
     private int screenHeight;
     private int screenWidth;
     private int screenDepth;
+    private String direction = "";
+    private Thread controlThread = new Thread(() -> getDirection());
 
     public Player(int screenWidth, int screenHeight, int screenDepth) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.screenDepth = screenDepth;
         player_y = this.screenHeight - 1;
+        controlThread.start();
+    }
+
+    private void getDirection() {
+        while (true) {
+            String key = "";
+            key += control.readKeys();
+            direction = key.toLowerCase();
+        }
     }
 
     public void move() {
-        String key = "";
-        key += control.readKeys();
-        switch (key.toLowerCase()) {
+        switch (direction) {
             case "a":
                 player_x--;
                 if (player_x < 0) {
@@ -45,7 +54,6 @@ public class Player {
                 }
                 break;
         }
-        System.out.println(player_z);
     }
 
     public int getZ() {
