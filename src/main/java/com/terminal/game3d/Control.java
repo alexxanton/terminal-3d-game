@@ -13,15 +13,27 @@ public class Control {
     public Control() {
         try {
             Terminal terminal = TerminalBuilder.terminal();
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> showCursor(terminal)));
             reader = terminal.reader();
+            hideCursor(terminal);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public int readKeys() {
+    private static void hideCursor(Terminal terminal) {
+        terminal.writer().print("\033[?25l");
+        terminal.writer().flush();
+    }
+
+    private static void showCursor(Terminal terminal) {
+        terminal.writer().print("\033[?25h");
+        terminal.writer().flush();
+    }
+
+    public char readKeys() {
         try {
-            return reader.read();
+            return (char) reader.read();
         } catch (IOException e) {
             e.printStackTrace();
             return 0;

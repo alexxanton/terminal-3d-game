@@ -1,14 +1,11 @@
 package com.terminal.game3d;
 
 public class GameArea {
+    final private char PLAYER_CHAR = '▄';
+    private final char EMPTY_SPACE = ' ';
     private Screen screen = new Screen();
     private char[][][] gameArea = new char[screen.getDepth()][screen.getHeight()][screen.getWidth()];
-    private Player player = new Player();
-    private char[][] sprite = {
-        {' ', '@', ' '},
-        {'/', '|', '\\'},
-        {'/', ' ', '\\'}
-    };
+    private Player player = new Player(screen.getWidth(), screen.getHeight(), screen.getDepth());
     
 
     public GameArea() {
@@ -20,12 +17,17 @@ public class GameArea {
             }
         }
     }
-        
+     
+    private void updatePlayer() {
+        gameArea[player.getZ()][player.getY()][player.getX()] = EMPTY_SPACE;
+        player.move();
+        gameArea[player.getZ()][player.getY()][player.getX()] = PLAYER_CHAR;
+    }
 
     public void start() {
         while (true) {
             screen.drawScreen(gameArea[player.getZ()]);
-            player.move();
+            updatePlayer();
         }
     }
 }
