@@ -9,6 +9,7 @@ public class Player {
     private int screenWidth;
     private int screenDepth;
     private String direction = "";
+    private String prevDirection = direction;
     private Thread controlThread = new Thread(() -> getDirection());
 
     public Player(int screenWidth, int screenHeight, int screenDepth) {
@@ -21,9 +22,12 @@ public class Player {
 
     private void getDirection() {
         while (true) {
-            String key = "";
-            key += control.readKeys();
+            prevDirection = direction;
+            String key = Character.toString(control.readKeys());
             direction = key.toLowerCase();
+            if (direction.equals(prevDirection)) {
+                direction = "";
+            }
         }
     }
 
@@ -46,12 +50,16 @@ public class Player {
                 if (player_z < 0) {
                     player_z = 0;
                 }
+                direction = "";
+                prevDirection = "";
                 break;
             case "s":
                 player_z++;
                 if (player_z > screenDepth - 1) {
                     player_z = screenDepth - 1;
                 }
+                direction = "";
+                prevDirection = "";
                 break;
         }
     }

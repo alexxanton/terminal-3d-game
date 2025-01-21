@@ -2,7 +2,7 @@ package com.terminal.game3d;
 
 public class Screen {
     private final int SCREEN_WIDTH = 40;
-    private final int SCREEN_HEIGHT = 10;
+    private final int SCREEN_HEIGHT = 5;
     private final int SCREEN_DEPTH = 5;
 
     public Screen() {
@@ -11,17 +11,17 @@ public class Screen {
 
     public void drawScreen(char[][] gameArea) {
         System.out.print("\033[H"); // move cursor to top left corner
-        System.out.println("╔" + "═".repeat(SCREEN_WIDTH) + "╗");
+        System.out.println("╔" + "═".repeat(SCREEN_WIDTH + 2) + "╗");
         
         for (int y = 0; y < gameArea.length; y++) {
-            System.out.print("║");
+            System.out.print("║ ");
             for (int x = 0; x < gameArea[y].length; x++) {
                 System.out.print(gameArea[y][x]);
             }
-            System.out.println("║");
+            System.out.println(" ║");
         }
-        System.out.println("║\033[32m" + "█".repeat(SCREEN_WIDTH) + "\033[0m║");
-        System.out.println("╚" + "═".repeat(SCREEN_WIDTH) + "╝");
+        System.out.println("║ \033[32m" + "█".repeat(SCREEN_WIDTH) + "\033[0m ║");
+        System.out.println("╚" + "═".repeat(SCREEN_WIDTH + 2) + "╝");
     }
 
     public int getHeight() {
