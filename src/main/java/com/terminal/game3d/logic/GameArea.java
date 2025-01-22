@@ -1,4 +1,7 @@
-package com.terminal.game3d;
+package com.terminal.game3d.logic;
+
+import com.terminal.game3d.entities.Player;
+import com.terminal.game3d.graphics.Screen;
 
 public class GameArea {
     private Screen screen = new Screen();

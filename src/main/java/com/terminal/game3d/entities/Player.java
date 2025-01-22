@@ -1,4 +1,6 @@
-package com.terminal.game3d;
+package com.terminal.game3d.entities;
+
+import com.terminal.game3d.control.Control;
 
 public class Player {
     private Control control = new Control();
@@ -28,34 +30,41 @@ public class Player {
     }
 
     public void move() {
+        if (movement > 0) {
+            player_x--;
+            movement--;
+            if (player_x < 0) {
+                player_x = 0;
+            }
+        } else if (movement < 0) {
+            player_x++;
+            movement++;
+            if (player_x > screenWidth - 1) {
+                player_x = screenWidth - 1;
+            }
+        }
         switch (direction) {
             case "a":
-                player_x--;
-                if (player_x < 0) {
-                    player_x = 0;
-                }
+                movement += 10;
                 break;
             case "d":
-                player_x++;
-                if (player_x > screenWidth - 1) {
-                    player_x = screenWidth - 1;
-                }
+                movement += -10;
                 break;
             case "w":
                 player_z--;
                 if (player_z < 0) {
                     player_z = 0;
                 }
-                direction = "";
                 break;
             case "s":
                 player_z++;
                 if (player_z > screenDepth - 1) {
                     player_z = screenDepth - 1;
                 }
-                direction = "";
                 break;
         }
+
+        direction = "";
     }
 
     public int getZ() {

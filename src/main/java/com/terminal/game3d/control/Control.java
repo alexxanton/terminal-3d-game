@@ -1,4 +1,4 @@
-package com.terminal.game3d;
+package com.terminal.game3d.control;
 
 import java.io.IOException;
 
