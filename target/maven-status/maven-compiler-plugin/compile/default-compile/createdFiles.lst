@@ -1,1 +1,6 @@
+com/terminal/game3d/GameArea.class
+com/terminal/game3d/Screen.class
+com/terminal/game3d/Meteorite.class
+com/terminal/game3d/Player.class
 com/terminal/game3d/Main.class
+com/terminal/game3d/Control.class
