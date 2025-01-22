@@ -9,6 +9,7 @@ public class Player {
     private int screenWidth;
     private int screenDepth;
     private String direction = "";
+    private int movement = 0;
     private Thread controlThread = new Thread(() -> getDirection());
 
     public Player(int screenWidth, int screenHeight, int screenDepth) {

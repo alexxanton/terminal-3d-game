@@ -14,6 +14,7 @@ public class Control {
         try {
             Terminal terminal = TerminalBuilder.terminal();
             Runtime.getRuntime().addShutdownHook(new Thread(() -> showCursor(terminal)));
+            terminal.enterRawMode();
             reader = terminal.reader();
             hideCursor(terminal);
         } catch (Exception e) {

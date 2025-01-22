@@ -10,7 +10,8 @@ public class GameArea {
     private final char DARK_SHADE = '▓';
     private final char EMPTY_SPACE = ' ';
     private Thread gameLoop = new Thread(() -> gameLoop());
-    private final char[] WALL_SHADES = {BLOCK, DARK_SHADE, MEDIUM_SHADE, LIGHT_SHADE, EMPTY_SPACE};
+    private final char[] WALL_SHADES = {EMPTY_SPACE, DARK_SHADE, MEDIUM_SHADE, LIGHT_SHADE, EMPTY_SPACE};
+    
     
 
     public GameArea() {
@@ -31,7 +32,7 @@ public class GameArea {
 
     private void gameLoop() {
         while (true) {
-            screen.drawScreen(gameArea[player.getZ()]);
+            screen.drawScreen(gameArea, player.getZ());
             updatePlayer();
             try {
                 Thread.sleep(10);
