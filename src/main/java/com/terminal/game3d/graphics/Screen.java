@@ -10,6 +10,7 @@ public class Screen {
     private StringBuilder screenBuilder = new StringBuilder("");
     private final String[] WALL_COLORS = {"\033[44m", "\033[34m\033[46m", "\033[34m\033[46m", "\033[34m\033[46m", "\033[46m"};
 
+    
     public Screen() {
         System.out.print("\033[2J"); // clear screen
     }

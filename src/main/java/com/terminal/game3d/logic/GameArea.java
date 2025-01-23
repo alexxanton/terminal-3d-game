@@ -14,9 +14,8 @@ public class GameArea {
     private final char EMPTY_SPACE = ' ';
     private Thread gameLoop = new Thread(() -> gameLoop());
     private final char[] WALL_SHADES = {EMPTY_SPACE, DARK_SHADE, MEDIUM_SHADE, LIGHT_SHADE, EMPTY_SPACE};
-    
-    
 
+    
     public GameArea() {
         for (int z = 0; z < gameArea.length; z++) {
             for (int y = 0; y < gameArea[z].length; y++) {

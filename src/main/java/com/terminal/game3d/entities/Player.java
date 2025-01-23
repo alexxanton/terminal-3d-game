@@ -1,6 +1,7 @@
 package com.terminal.game3d.entities;
 
 import com.terminal.game3d.control.Control;
+import com.terminal.game3d.utils.SoundPlayer;
 
 public class Player {
     private Control control = new Control();
@@ -14,6 +15,7 @@ public class Player {
     private int movement = 0;
     private Thread controlThread = new Thread(() -> getDirection());
 
+    
     public Player(int screenWidth, int screenHeight, int screenDepth) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
@@ -43,12 +45,19 @@ public class Player {
                 player_x = screenWidth - 1;
             }
         }
+
         switch (direction) {
             case "a":
-                movement += 10;
+                if (movement < 10) {
+                    movement += 10;
+                }
+                SoundPlayer.playSound("src/main/resources/bell.wav");
                 break;
             case "d":
-                movement += -10;
+                if (movement > -10) {
+                    movement += -10;
+                }
+                SoundPlayer.playSound("src/main/resources/bell.wav");
                 break;
             case "w":
                 player_z--;
