@@ -28,7 +28,7 @@ public class GameArea {
      
     private void updatePlayer() {
         gameArea[player.getZ()][player.getY()][player.getX()] = WALL_SHADES[player.getZ()];
-        player.move();
+        player.updatePlayerPosition();
         gameArea[player.getZ()][player.getY()][player.getX()] = BLOCK;
     }
 
