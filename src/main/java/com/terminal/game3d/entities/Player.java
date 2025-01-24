@@ -1,7 +1,6 @@
 package com.terminal.game3d.entities;
 
 import com.terminal.game3d.control.Control;
-import com.terminal.game3d.utils.SoundPlayer;
 
 public class Player {
     private Control control = new Control();
@@ -15,7 +14,6 @@ public class Player {
     private int movement = 0;
     private int jump = 0;
     private Thread controlThread = new Thread(() -> getPressedKey());
-    private final String BEEP_SOUND = "src/main/resources/sounds/bell.wav";
     private final int BASE_JUMP = 40;
 
     
@@ -40,13 +38,11 @@ public class Player {
                 if (movement < 10) {
                     movement += 10;
                 }
-                SoundPlayer.playSound(BEEP_SOUND);
                 break;
             case "d":
                 if (movement > -10) {
                     movement += -10;
                 }
-                SoundPlayer.playSound(BEEP_SOUND);
                 break;
             case "w":
                 player_z--;
@@ -68,7 +64,6 @@ public class Player {
                 }
                 break;
             case "m":
-                SoundPlayer.toggleMute();
                 break;
         }
 
