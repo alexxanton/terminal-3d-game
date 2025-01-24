@@ -1,7 +1,6 @@
 package com.terminal.game3d.entities;
 
 import com.terminal.game3d.control.Control;
-import com.terminal.game3d.utils.SongPlayer;
 import com.terminal.game3d.utils.SoundPlayer;
 
 public class Player {
@@ -69,7 +68,7 @@ public class Player {
                 }
                 break;
             case "m":
-                SongPlayer.toggleMute();
+                SoundPlayer.toggleMute();
                 break;
         }
 
