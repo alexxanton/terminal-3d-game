@@ -12,9 +12,11 @@ public class Player {
     private int screenDepth;
     private String direction = "";
     private int movement = 0;
-    private int jump = 0;
+    private boolean jump = false;
+    private float velocity = 0;
     private Thread controlThread = new Thread(() -> getPressedKey());
-    private final int BASE_JUMP = 40;
+    private final int BASE_JUMP = 11;
+    private final int GRAVITY = 9;
 
     
     public Player(int screenWidth, int screenHeight, int screenDepth) {
@@ -58,9 +60,7 @@ public class Player {
                 break;
             case " ":
                 if (player_y == screenHeight - 1) {
-                    jump = BASE_JUMP;
-                } else {
-                    jump = 0;
+                    jump = true;
                 }
                 break;
             case "m":
@@ -86,14 +86,13 @@ public class Player {
         }
 
         
-        if (jump > 0) {
-            if (jump > BASE_JUMP - 15) {
-                player_y--;
-            }
-            jump--;
-        } else {
-            player_y++;
+        if (jump) {
+            velocity = BASE_JUMP;
+            jump = false;
         }
+        
+        velocity -= 0.1;
+        player_y -= Math.round(velocity) - GRAVITY;
         
         if (player_y > screenHeight - 1) {
             player_y = screenHeight - 1;
