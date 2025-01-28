@@ -1,4 +1,4 @@
-package com.terminal.game3d.utils;
+package com.terminal.game3d.graphics;
 
 public enum WallShades {
     BACK_SHADE(' '),
