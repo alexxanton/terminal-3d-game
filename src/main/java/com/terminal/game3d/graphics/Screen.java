@@ -1,9 +1,9 @@
 package com.terminal.game3d.graphics;
 
 public class Screen {
-    private final int SCREEN_WIDTH = 50;
-    private final int SCREEN_HEIGHT = 20;
-    private final int SCREEN_DEPTH = 5;
+    private static final int SCREEN_WIDTH = 50;
+    private static final int SCREEN_HEIGHT = 20;
+    private static final int SCREEN_DEPTH = 5;
     private final String TOP_BORDER = "\033[H╔" + "═".repeat(SCREEN_WIDTH + 2) + "╗\n";
     private final String FLOOR = "║ \033[32m" + "█".repeat(SCREEN_WIDTH) + "\033[0m ║\n";
     private final String BOTTOM_BORDER = "╚" + "═".repeat(SCREEN_WIDTH + 2) + "╝";
@@ -38,20 +38,15 @@ public class Screen {
         screenBuilder.setLength(0);
     }
 
-    public int getHeight() {
+    public static int getHeight() {
         return SCREEN_HEIGHT;
     }
 
-    public int getWidth() {
+    public static int getWidth() {
         return SCREEN_WIDTH;
     }
 
-    public int getDepth() {
+    public static int getDepth() {
         return SCREEN_DEPTH;
-    }
-
-    public int[] getScreenDimensions() {
-        int[] dimensions = {SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_DEPTH};
-        return dimensions;
     }
 }

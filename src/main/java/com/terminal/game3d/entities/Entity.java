@@ -1,10 +1,10 @@
 package com.terminal.game3d.entities;
 
+import com.terminal.game3d.graphics.Screen;
 import com.terminal.game3d.graphics.WallShades;
+import com.terminal.game3d.logic.GameArea;
 
-public abstract class Entity {
-    protected char[][][] gameArea;
-    protected String[][][] colorGrid;
+public abstract class Entity extends Thread {
     protected int screenWidth;
     protected int screenHeight;
     protected int screenDepth;
@@ -13,16 +13,25 @@ public abstract class Entity {
     protected int y;
     protected char symbol;
 
-    public Entity(int x, int y, int z, char symbol, char[][][] gameArea, String[][][] colorGrid, int[] screenDimensions) {
+    public Entity(int x, int y, int z, char symbol) {
         this.z = z;
         this.x = x;
         this.y = y;
         this.symbol = symbol;
-        this.gameArea = gameArea;
-        this.colorGrid = colorGrid;
-        this.screenWidth = screenDimensions[0];
-        this.screenHeight = screenDimensions[1];
-        this.screenDepth = screenDimensions[2];
+        this.screenWidth = Screen.getWidth();
+        this.screenHeight = Screen.getHeight();
+        this.screenDepth = Screen.getDepth();
+    }
+
+    public void run() {
+        while (true) {
+            render();
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public int getZ() {
@@ -38,11 +47,10 @@ public abstract class Entity {
     }
 
     public void render() {
-        gameArea[z][y][x] = WallShades.values()[z].getSymbol();
-        colorGrid[z][y][x] = "\033[0m";
+        GameArea.gameArea[z][y][x] = WallShades.values()[z].getSymbol();
         updatePosition();
-        gameArea[z][y][x] = symbol;
-        colorGrid[z][y][x] = "\033[31m";
+        GameArea.gameArea[z][y][x] = symbol;
+        GameArea.colorGrid[z][y][x] = "\033[31m";
     }
 
     public abstract void updatePosition();

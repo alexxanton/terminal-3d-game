@@ -5,10 +5,10 @@ import com.terminal.game3d.graphics.Screen;
 import com.terminal.game3d.graphics.WallShades;
 
 public class GameArea {
-    private Screen screen = new Screen();
-    private char[][][] gameArea = new char[screen.getDepth()][screen.getHeight()][screen.getWidth()];
-    private String[][][] colorGrid = new String[screen.getDepth()][screen.getHeight()][screen.getWidth()];
-    private Player player = new Player(gameArea, colorGrid, screen.getScreenDimensions());
+    public static Screen screen = new Screen();
+    public static char[][][] gameArea = new char[Screen.getDepth()][Screen.getHeight()][Screen.getWidth()];
+    public static String[][][] colorGrid = new String[Screen.getDepth()][Screen.getHeight()][Screen.getWidth()];
+    public static Player player = new Player(0, 0, 2, '█');
     private Thread gameLoop = new Thread(() -> gameLoop());
 
     

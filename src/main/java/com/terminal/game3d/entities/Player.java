@@ -10,16 +10,15 @@ public class Player extends Entity {
     private int lateralMovement = 0;
     private boolean isJumping = false;
     private float verticalVelocity = 0;
-    private Thread inputThread = new Thread(() -> getPressedKey());
 
     
-    public Player(char[][][] gameArea, String[][][] colorGrid, int[] screenDimensions) {
-        super(0, 0, 2, '█', gameArea, colorGrid, screenDimensions);
+    public Player(int x, int y, int z, char symbol) {
+        super(x, y, z, symbol);
         this.y = screenHeight - 1;
-        inputThread.start();
     }
 
-    private void getPressedKey() {
+    @Override
+    public void run() {
         while (true) {
             String key = Character.toString(control.readKeys());
             currentDirection = key.toLowerCase();
