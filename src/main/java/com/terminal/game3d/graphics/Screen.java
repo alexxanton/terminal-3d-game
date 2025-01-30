@@ -15,19 +15,19 @@ public class Screen {
         System.out.print("\033[2J"); // clear screen
     }
 
-    public void drawScreen(char[][][] gameArea, String[][][] colorGrid, int player_z) {
+    public void drawScreen(char[][][] gameGrid, String[][][] colorGrid, int player_z) {
         screenBuilder.append(TOP_BORDER);
         
-        for (int y = 0; y < gameArea[player_z].length; y++) {
+        for (int y = 0; y < gameGrid[player_z].length; y++) {
             screenBuilder.append("║ " + WALL_COLORS[player_z]);
-            for (int x = 0; x < gameArea[player_z][y].length; x++) {
-                if (gameArea[player_z][y][x] == '█') {
+            for (int x = 0; x < gameGrid[player_z][y].length; x++) {
+                if (gameGrid[player_z][y][x] == '█') {
                     screenBuilder
                     .append(colorGrid[player_z][y][x])
-                    .append(gameArea[player_z][y][x])
+                    .append(gameGrid[player_z][y][x])
                     .append(WALL_COLORS[player_z]);
                 } else {
-                    screenBuilder.append(gameArea[player_z][y][x]);
+                    screenBuilder.append(gameGrid[player_z][y][x]);
                 }
             }
             screenBuilder.append("\033[0m ║\n");

@@ -6,17 +6,18 @@ import com.terminal.game3d.graphics.WallShades;
 
 public class GameArea {
     public static Screen screen = new Screen();
-    public static char[][][] gameArea = new char[Screen.getDepth()][Screen.getHeight()][Screen.getWidth()];
+    public static char[][][] gameGrid = new char[Screen.getDepth()][Screen.getHeight()][Screen.getWidth()];
     public static String[][][] colorGrid = new String[Screen.getDepth()][Screen.getHeight()][Screen.getWidth()];
-    public static Player player = new Player(0, 0, 2, '█');
+    public Player player = new Player(0, 0, 2, '█', true);
+    public Player player2 = new Player(10, 0, 2, '█', false);
     private Thread gameLoop = new Thread(() -> gameLoop());
 
     
     public GameArea() {
-        for (int z = 0; z < gameArea.length; z++) {
-            for (int y = 0; y < gameArea[z].length; y++) {
-                for (int x = 0; x < gameArea[z][y].length; x++) {
-                    gameArea[z][y][x] = WallShades.values()[z].getSymbol();
+        for (int z = 0; z < gameGrid.length; z++) {
+            for (int y = 0; y < gameGrid[z].length; y++) {
+                for (int x = 0; x < gameGrid[z][y].length; x++) {
+                    gameGrid[z][y][x] = WallShades.values()[z].getSymbol();
                     colorGrid[z][y][x] = "";
                 }
             }
@@ -25,8 +26,9 @@ public class GameArea {
 
     private void gameLoop() {
         while (true) {
-            screen.drawScreen(gameArea, colorGrid, player.getZ());
+            screen.drawScreen(gameGrid, colorGrid, player.getZ());
             player.render();
+            player2.render();
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -36,6 +38,8 @@ public class GameArea {
     }
 
     public void start() {
+        player.start();
+        player2.start();
         gameLoop.start();
     }
 }

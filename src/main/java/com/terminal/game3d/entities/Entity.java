@@ -23,6 +23,7 @@ public abstract class Entity extends Thread {
         this.screenDepth = Screen.getDepth();
     }
 
+    @Override
     public void run() {
         while (true) {
             render();
@@ -47,9 +48,9 @@ public abstract class Entity extends Thread {
     }
 
     public void render() {
-        GameArea.gameArea[z][y][x] = WallShades.values()[z].getSymbol();
+        GameArea.gameGrid[z][y][x] = WallShades.values()[z].getSymbol();
         updatePosition();
-        GameArea.gameArea[z][y][x] = symbol;
+        GameArea.gameGrid[z][y][x] = symbol;
         GameArea.colorGrid[z][y][x] = "\033[31m";
     }
 

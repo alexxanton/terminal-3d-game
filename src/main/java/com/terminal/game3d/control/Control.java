@@ -9,8 +9,9 @@ import org.jline.utils.NonBlockingReader;
 
 public class Control {
     private NonBlockingReader reader;
+    private static Control instance;
 
-    public Control() {
+    private Control() {
         try {
             Terminal terminal = TerminalBuilder.terminal();
             Runtime.getRuntime().addShutdownHook(new Thread(() -> showCursor(terminal)));
@@ -20,6 +21,13 @@ public class Control {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Control getInstance() {
+        if (instance == null) {
+            instance = new Control();
+        }
+        return instance;
     }
 
     private static void hideCursor(Terminal terminal) {
