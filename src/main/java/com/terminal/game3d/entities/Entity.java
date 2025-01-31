@@ -48,12 +48,16 @@ public abstract class Entity extends Thread {
         return y;
     }
 
-    public void render() {
+    private void drawCharacter() {
         GameArea.gameGrid[z][y][x] = WallShades.values()[z].getSymbol();
         GameArea.colorGrid[z][y][x] = "";
         updatePosition();
         GameArea.gameGrid[z][y][x] = symbol;
         GameArea.colorGrid[z][y][x] = color;
+    }
+
+    public void render() {
+        drawCharacter();
     }
 
     public abstract void updatePosition();

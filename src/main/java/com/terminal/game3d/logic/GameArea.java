@@ -1,16 +1,20 @@
 package com.terminal.game3d.logic;
 
+import com.terminal.game3d.control.Control;
 import com.terminal.game3d.entities.Player;
 import com.terminal.game3d.graphics.Screen;
 import com.terminal.game3d.graphics.WallShades;
 
 public class GameArea {
-    public static Screen screen = new Screen();
-    public static char[][][] gameGrid = new char[Screen.getDepth()][Screen.getHeight()][Screen.getWidth()];
-    public static String[][][] colorGrid = new String[Screen.getDepth()][Screen.getHeight()][Screen.getWidth()];
+    private static final int SCREEN_WIDTH = 50;
+    private static final int SCREEN_HEIGHT = 20;
+    private static final int SCREEN_DEPTH = 5;
+    public static char[][][] gameGrid = new char[SCREEN_DEPTH][SCREEN_HEIGHT][SCREEN_WIDTH];
+    public static String[][][] colorGrid = new String[SCREEN_DEPTH][SCREEN_HEIGHT][SCREEN_WIDTH];
+    public Control control = new Control();
     public Player player = new Player(0, 0, 2, true);
     public Player player2 = new Player(10, 0, 2, false);
-    private Thread gameLoop = new Thread(() -> gameLoop());
+    public Screen screen = new Screen(gameGrid, colorGrid, player.getZ());
 
     
     public GameArea() {
@@ -24,22 +28,9 @@ public class GameArea {
         }
     }
 
-    private void gameLoop() {
-        while (true) {
-            screen.drawScreen(gameGrid, colorGrid, player.getZ());
-            player.render();
-            player2.render();
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public void start() {
         player.start();
         player2.start();
-        gameLoop.start();
+        screen.start();
     }
 }

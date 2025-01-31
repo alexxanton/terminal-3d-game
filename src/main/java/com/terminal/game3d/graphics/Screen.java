@@ -1,9 +1,13 @@
 package com.terminal.game3d.graphics;
 
-public class Screen {
+public class Screen extends Thread {
     private static final int SCREEN_WIDTH = 50;
     private static final int SCREEN_HEIGHT = 20;
     private static final int SCREEN_DEPTH = 5;
+
+    private char[][][] gameGrid;
+    private String[][][] colorGrid;
+    private int player_z;
     private final String TOP_BORDER = "\033[H╔" + "═".repeat(SCREEN_WIDTH + 2) + "╗\n";
     private final String FLOOR = "║ \033[32m" + "█".repeat(SCREEN_WIDTH) + "\033[0m ║\n";
     private final String BOTTOM_BORDER = "╚" + "═".repeat(SCREEN_WIDTH + 2) + "╝";
@@ -11,11 +15,14 @@ public class Screen {
     private final String[] WALL_COLORS = {"\033[46m", "\033[36m\033[44m", "\033[44m"};
 
     
-    public Screen() {
+    public Screen(char[][][] gameGrid, String[][][] colorGrid, int player_z) {
+        this.gameGrid = gameGrid;
+        this.colorGrid = colorGrid;
+        this.player_z = player_z;
         System.out.print("\033[2J"); // clear screen
     }
 
-    public void drawScreen(char[][][] gameGrid, String[][][] colorGrid, int player_z) {
+    public void drawScreen() {
         screenBuilder.append(TOP_BORDER);
         int index = (int) Math.min(2, Math.floor((player_z + 2) / 3));
         String wallColor = WALL_COLORS[index];
@@ -32,6 +39,18 @@ public class Screen {
 
         System.out.println(screenBuilder);
         screenBuilder.setLength(0);
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            drawScreen();
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static int getHeight() {

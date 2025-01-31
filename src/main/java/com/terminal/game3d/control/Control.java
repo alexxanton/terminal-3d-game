@@ -9,26 +9,28 @@ import org.jline.utils.NonBlockingReader;
 
 public class Control {
     private NonBlockingReader reader;
-    private static Control instance;
+    private Thread inpuThread = new Thread(() -> getPressedKeys());
+    public static volatile String currentDirection = "";
 
-    private Control() {
+    public Control() {
         try {
             Terminal terminal = TerminalBuilder.terminal();
             Runtime.getRuntime().addShutdownHook(new Thread(() -> showCursor(terminal)));
             terminal.enterRawMode();
             reader = terminal.reader();
             hideCursor(terminal);
+            inpuThread.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static Control getInstance() {
-        if (instance == null) {
-            instance = new Control();
-        }
-        return instance;
-    }
+    // public static Control getInstance() {
+    //     if (instance == null) {
+    //         instance = new Control();
+    //     }
+    //     return instance;
+    // }
 
     private static void hideCursor(Terminal terminal) {
         terminal.writer().print("\033[?25l");
@@ -46,6 +48,13 @@ public class Control {
         } catch (IOException e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    public void getPressedKeys() {
+        while (true) {
+            String key = Character.toString(readKeys());
+            Control.currentDirection = key.toLowerCase();
         }
     }
 }

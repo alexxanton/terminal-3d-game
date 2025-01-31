@@ -8,12 +8,9 @@ public class Player extends Entity {
     private final char BLOCK = '█';
     private final float JUMP_FORCE = 0.9f;
     private final float GRAVITY = 0.05f;
-    private Control control = Control.getInstance();
     private int lateralMovement = 0;
     private boolean isJumping = false;
     private float verticalVelocity = 0;
-    private boolean isPlayer1;
-    private static String currentDirection;
     private final String UP_KEY = "w";
     private final String DOWN_KEY = "s";
     private final String LEFT_KEY;
@@ -24,7 +21,6 @@ public class Player extends Entity {
     public Player(int x, int y, int z, boolean isPlayer1) {
         super(x, y, z);
         this.y = screenHeight - 1;
-        this.isPlayer1 = isPlayer1;
         this.color = isPlayer1 ? COLOR_RED : COLOR_GREEN;
         this.symbol = BLOCK;
 
@@ -32,7 +28,6 @@ public class Player extends Entity {
             LEFT_KEY = "a";
             RIGHT_KEY = "d";
             JUMP_KEY = " ";
-            currentDirection = "";
         } else {
             LEFT_KEY = "j";
             RIGHT_KEY = "l";
@@ -40,42 +35,27 @@ public class Player extends Entity {
         }
     }
 
-    @Override
-    public void run() {
-        if (!isPlayer1) {
-            return;
-        }
-        while (true) {
-            String key = Character.toString(control.readKeys());
-            currentDirection = key.toLowerCase();
-        }
-    }
-
     private void handleInput() {
-        if (currentDirection.equals(LEFT_KEY)) {
+        if (Control.currentDirection.equals(LEFT_KEY)) {
             if (lateralMovement < 10) {
                 lateralMovement += 10;
             }
-        } else if (currentDirection.equals(RIGHT_KEY)) {
+        } else if (Control.currentDirection.equals(RIGHT_KEY)) {
             if (lateralMovement > -10) {
                 lateralMovement += -10;
             }
-        } else if (currentDirection.equals(UP_KEY)) {
+        } else if (Control.currentDirection.equals(UP_KEY)) {
             z--;
             if (z < 0) {
                 z = 0;
             }
-        } else if (currentDirection.equals(DOWN_KEY)) {
+        } else if (Control.currentDirection.equals(DOWN_KEY)) {
             z++;
             if (z > screenDepth - 1) {
                 z = screenDepth - 1;
             }
-        } else if (currentDirection.equals(JUMP_KEY)) {
+        } else if (Control.currentDirection.equals(JUMP_KEY)) {
             isJumping = true;
-        }
-
-        if (!isPlayer1) {
-            currentDirection = "";
         }
     }
 
