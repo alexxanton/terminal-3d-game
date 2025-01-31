@@ -1,13 +1,13 @@
 package com.terminal.game3d.entities;
 
-import com.terminal.game3d.graphics.Screen;
+import com.terminal.game3d.graphics.ScreenDimensions;
 import com.terminal.game3d.graphics.WallShades;
 import com.terminal.game3d.logic.GameArea;
 
 public abstract class Entity extends Thread {
-    protected int screenWidth;
-    protected int screenHeight;
-    protected int screenDepth;
+    protected final int SCREEN_WIDTH = ScreenDimensions.SCREEN_WIDTH.getDimension();
+    protected final int SCREEN_HEIGHT = ScreenDimensions.SCREEN_HEIGHT.getDimension();
+    protected final int SCREEN_DEPTH = ScreenDimensions.SCREEN_DEPTH.getDimension();
     protected int z;
     protected int x;
     protected int y;
@@ -19,9 +19,6 @@ public abstract class Entity extends Thread {
         this.z = z;
         this.x = x;
         this.y = y;
-        this.screenWidth = Screen.getWidth();
-        this.screenHeight = Screen.getHeight();
-        this.screenDepth = Screen.getDepth();
     }
 
     @Override

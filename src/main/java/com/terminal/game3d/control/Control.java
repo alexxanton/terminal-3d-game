@@ -12,6 +12,7 @@ public class Control {
     private Thread inpuThread = new Thread(() -> getPressedKeys());
     public static volatile String currentDirection = "";
 
+    
     public Control() {
         try {
             Terminal terminal = TerminalBuilder.terminal();

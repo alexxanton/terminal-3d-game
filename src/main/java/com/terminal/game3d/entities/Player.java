@@ -20,7 +20,7 @@ public class Player extends Entity {
     
     public Player(int x, int y, int z, boolean isPlayer1) {
         super(x, y, z);
-        this.y = screenHeight - 1;
+        this.y = SCREEN_HEIGHT - 1;
         this.color = isPlayer1 ? COLOR_RED : COLOR_GREEN;
         this.symbol = BLOCK;
 
@@ -51,8 +51,8 @@ public class Player extends Entity {
             }
         } else if (Control.currentDirection.equals(DOWN_KEY)) {
             z++;
-            if (z > screenDepth - 1) {
-                z = screenDepth - 1;
+            if (z > SCREEN_DEPTH - 1) {
+                z = SCREEN_DEPTH - 1;
             }
         } else if (Control.currentDirection.equals(JUMP_KEY)) {
             isJumping = true;
@@ -68,21 +68,21 @@ public class Player extends Entity {
         } else if (lateralMovement < 0) {
             x++;
             lateralMovement++;
-            x = Math.min(x, screenWidth - 1);
+            x = Math.min(x, SCREEN_WIDTH - 1);
         }
 
         
-        if (isJumping && y == screenHeight - 1) {
+        if (isJumping && y == SCREEN_HEIGHT - 1) {
             verticalVelocity = JUMP_FORCE;
         }
 
-        if (y > screenHeight - 5) {
+        if (y > SCREEN_HEIGHT - 5) {
             isJumping = false;
         }
         
         verticalVelocity -= GRAVITY;
         y -= Math.ceil(verticalVelocity);
-        y = Math.max(0, Math.min(y, screenHeight - 1));
+        y = Math.max(0, Math.min(y, SCREEN_HEIGHT - 1));
 
         handleInput();
     }

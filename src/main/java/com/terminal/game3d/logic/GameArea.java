@@ -3,16 +3,14 @@ package com.terminal.game3d.logic;
 import com.terminal.game3d.control.Control;
 import com.terminal.game3d.entities.Player;
 import com.terminal.game3d.graphics.Screen;
+import com.terminal.game3d.graphics.ScreenDimensions;
 import com.terminal.game3d.graphics.WallShades;
 
 public class GameArea {
-    private static final int SCREEN_WIDTH = 50;
-    private static final int SCREEN_HEIGHT = 20;
-    private static final int SCREEN_DEPTH = 5;
-    public static char[][][] gameGrid = new char[SCREEN_DEPTH][SCREEN_HEIGHT][SCREEN_WIDTH];
-    public static String[][][] colorGrid = new String[SCREEN_DEPTH][SCREEN_HEIGHT][SCREEN_WIDTH];
+    public static char[][][] gameGrid = new char[ScreenDimensions.SCREEN_DEPTH.getDimension()][ScreenDimensions.SCREEN_HEIGHT.getDimension()][ScreenDimensions.SCREEN_WIDTH.getDimension()];
+    public static String[][][] colorGrid = new String[ScreenDimensions.SCREEN_DEPTH.getDimension()][ScreenDimensions.SCREEN_HEIGHT.getDimension()][ScreenDimensions.SCREEN_WIDTH.getDimension()];
     public Control control = new Control();
-    public Player player = new Player(0, 0, 2, true);
+    public static Player player = new Player(0, 0, 2, true);
     public Player player2 = new Player(10, 0, 2, false);
     public Screen screen = new Screen(gameGrid, colorGrid, player.getZ());
 
