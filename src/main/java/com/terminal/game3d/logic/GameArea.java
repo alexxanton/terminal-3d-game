@@ -8,8 +8,8 @@ public class GameArea {
     public static Screen screen = new Screen();
     public static char[][][] gameGrid = new char[Screen.getDepth()][Screen.getHeight()][Screen.getWidth()];
     public static String[][][] colorGrid = new String[Screen.getDepth()][Screen.getHeight()][Screen.getWidth()];
-    public Player player = new Player(0, 0, 2, '█', true);
-    public Player player2 = new Player(10, 0, 2, '█', false);
+    public Player player = new Player(0, 0, 2, true);
+    public Player player2 = new Player(10, 0, 2, false);
     private Thread gameLoop = new Thread(() -> gameLoop());
 
     

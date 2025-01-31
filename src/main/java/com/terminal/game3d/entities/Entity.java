@@ -12,12 +12,13 @@ public abstract class Entity extends Thread {
     protected int x;
     protected int y;
     protected char symbol;
+    protected String color;
 
-    public Entity(int x, int y, int z, char symbol) {
+
+    public Entity(int x, int y, int z) {
         this.z = z;
         this.x = x;
         this.y = y;
-        this.symbol = symbol;
         this.screenWidth = Screen.getWidth();
         this.screenHeight = Screen.getHeight();
         this.screenDepth = Screen.getDepth();
@@ -49,9 +50,10 @@ public abstract class Entity extends Thread {
 
     public void render() {
         GameArea.gameGrid[z][y][x] = WallShades.values()[z].getSymbol();
+        GameArea.colorGrid[z][y][x] = "";
         updatePosition();
         GameArea.gameGrid[z][y][x] = symbol;
-        GameArea.colorGrid[z][y][x] = "\033[31m";
+        GameArea.colorGrid[z][y][x] = color;
     }
 
     public abstract void updatePosition();

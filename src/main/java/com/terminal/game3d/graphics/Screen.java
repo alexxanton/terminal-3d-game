@@ -8,7 +8,7 @@ public class Screen {
     private final String FLOOR = "║ \033[32m" + "█".repeat(SCREEN_WIDTH) + "\033[0m ║\n";
     private final String BOTTOM_BORDER = "╚" + "═".repeat(SCREEN_WIDTH + 2) + "╝";
     private StringBuilder screenBuilder = new StringBuilder("");
-    private final String[] WALL_COLORS = {"\033[46m", "\033[36m\033[44m", "\033[36m\033[44m", "\033[36m\033[44m", "\033[44m"};
+    private final String[] WALL_COLORS = {"\033[46m", "\033[36m\033[44m", "\033[44m"};
 
     
     public Screen() {
@@ -17,18 +17,14 @@ public class Screen {
 
     public void drawScreen(char[][][] gameGrid, String[][][] colorGrid, int player_z) {
         screenBuilder.append(TOP_BORDER);
+        int index = (int) Math.min(2, Math.floor((player_z + 2) / 3));
+        String wallColor = WALL_COLORS[index];
         
         for (int y = 0; y < gameGrid[player_z].length; y++) {
-            screenBuilder.append("║ " + WALL_COLORS[player_z]);
+            screenBuilder.append("║ " + wallColor);
             for (int x = 0; x < gameGrid[player_z][y].length; x++) {
-                if (gameGrid[player_z][y][x] == '█') {
-                    screenBuilder
-                    .append(colorGrid[player_z][y][x])
-                    .append(gameGrid[player_z][y][x])
-                    .append(WALL_COLORS[player_z]);
-                } else {
-                    screenBuilder.append(gameGrid[player_z][y][x]);
-                }
+                String color = colorGrid[player_z][y][x].isEmpty() ? "" : wallColor;
+                screenBuilder.append(colorGrid[player_z][y][x]).append(gameGrid[player_z][y][x]).append(color);
             }
             screenBuilder.append("\033[0m ║\n");
         }
