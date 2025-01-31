@@ -10,19 +10,22 @@ public class Player extends Entity {
     private final float GRAVITY = 0.05f;
     private int lateralMovement = 0;
     private boolean isJumping = false;
+    private boolean isPlayer1;
     private float verticalVelocity = 0;
     private final String UP_KEY = "w";
     private final String DOWN_KEY = "s";
     private final String LEFT_KEY;
     private final String RIGHT_KEY;
     private final String JUMP_KEY;
-
+    private final String PLAYER_1_DIRECTIONS = "wasd ";
+    private final String PLAYER_2_DIRECTIONS = "jkl";
     
     public Player(int x, int y, int z, boolean isPlayer1) {
         super(x, y, z);
         this.y = SCREEN_HEIGHT - 1;
         this.color = isPlayer1 ? COLOR_RED : COLOR_GREEN;
         this.symbol = BLOCK;
+        this.isPlayer1 = isPlayer1;
 
         if (isPlayer1) {
             LEFT_KEY = "a";
@@ -56,6 +59,11 @@ public class Player extends Entity {
             }
         } else if (Control.currentDirection.equals(JUMP_KEY)) {
             isJumping = true;
+        }
+
+        if (isPlayer1 && PLAYER_1_DIRECTIONS.contains(Control.currentDirection)
+        || !isPlayer1 && PLAYER_2_DIRECTIONS.contains(Control.currentDirection)) {
+            Control.currentDirection = "";
         }
     }
 

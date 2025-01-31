@@ -26,13 +26,6 @@ public class Control {
         }
     }
 
-    // public static Control getInstance() {
-    //     if (instance == null) {
-    //         instance = new Control();
-    //     }
-    //     return instance;
-    // }
-
     private static void hideCursor(Terminal terminal) {
         terminal.writer().print("\033[?25l");
         terminal.writer().flush();
@@ -55,7 +48,7 @@ public class Control {
     public void getPressedKeys() {
         while (true) {
             String key = Character.toString(readKeys());
-            Control.currentDirection = key.toLowerCase();
+            currentDirection = key.toLowerCase();
         }
     }
 }

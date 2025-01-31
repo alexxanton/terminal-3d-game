@@ -10,9 +10,9 @@ public class GameArea {
     public static char[][][] gameGrid = new char[ScreenDimensions.SCREEN_DEPTH.getDimension()][ScreenDimensions.SCREEN_HEIGHT.getDimension()][ScreenDimensions.SCREEN_WIDTH.getDimension()];
     public static String[][][] colorGrid = new String[ScreenDimensions.SCREEN_DEPTH.getDimension()][ScreenDimensions.SCREEN_HEIGHT.getDimension()][ScreenDimensions.SCREEN_WIDTH.getDimension()];
     public Control control = new Control();
-    public static Player player = new Player(0, 0, 2, true);
+    public Player player = new Player(0, 0, 2, true);
     public Player player2 = new Player(10, 0, 2, false);
-    public Screen screen = new Screen(gameGrid, colorGrid, player.getZ());
+    public Screen screen = new Screen(gameGrid, colorGrid, player);
 
     
     public GameArea() {

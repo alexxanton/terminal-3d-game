@@ -1,27 +1,31 @@
 package com.terminal.game3d.graphics;
 
+import com.terminal.game3d.entities.Player;
+
 public class Screen extends Thread {
     private char[][][] gameGrid;
     private String[][][] colorGrid;
-    private int player_z;
-    private final String TOP_BORDER = "\033[H╔" + "═".repeat(ScreenDimensions.SCREEN_WIDTH.getDimension() + 2) + "╗\n";
-    private final String FLOOR = "║ \033[32m" + "█".repeat(ScreenDimensions.SCREEN_WIDTH.getDimension()) + "\033[0m ║\n";
-    private final String BOTTOM_BORDER = "╚" + "═".repeat(ScreenDimensions.SCREEN_WIDTH.getDimension() + 2) + "╝";
+    private Player player;
+    private final int SCREEN_WIDTH = ScreenDimensions.SCREEN_WIDTH.getDimension();
+    private final String TOP_BORDER = "\033[H╔" + "═".repeat(SCREEN_WIDTH + 2) + "╗\n";
+    private final String FLOOR = "║ \033[32m" + "█".repeat(SCREEN_WIDTH) + "\033[0m ║\n";
+    private final String BOTTOM_BORDER = "╚" + "═".repeat(SCREEN_WIDTH + 2) + "╝";
     private StringBuilder screenBuilder = new StringBuilder("");
     private final String[] WALL_COLORS = {"\033[46m", "\033[36m\033[44m", "\033[44m"};
 
     
-    public Screen(char[][][] gameGrid, String[][][] colorGrid, int player_z) {
+    public Screen(char[][][] gameGrid, String[][][] colorGrid, Player player) {
         this.gameGrid = gameGrid;
         this.colorGrid = colorGrid;
-        this.player_z = player_z;
+        this.player = player;
         System.out.print("\033[2J"); // clear screen
     }
 
     public void drawScreen() {
-        screenBuilder.append(TOP_BORDER);
+        int player_z = player.getZ();
         int index = (int) Math.min(2, Math.floor((player_z + 2) / 3));
         String wallColor = WALL_COLORS[index];
+        screenBuilder.append(TOP_BORDER);
         
         for (int y = 0; y < gameGrid[player_z].length; y++) {
             screenBuilder.append("║ " + wallColor);
