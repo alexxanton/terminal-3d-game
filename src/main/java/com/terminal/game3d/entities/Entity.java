@@ -13,6 +13,8 @@ public abstract class Entity extends Thread {
     protected int y;
     protected char symbol;
     protected String color;
+    private char[][][] gameGrid = GameArea.gameGrid;
+    private String[][][] colorGrid = GameArea.colorGrid;
 
 
     public Entity(int x, int y, int z) {
@@ -45,17 +47,17 @@ public abstract class Entity extends Thread {
         return y;
     }
 
-    private void drawCharacter() {
-        GameArea.gameGrid[z][y][x] = WallShades.values()[z].getSymbol();
-        GameArea.colorGrid[z][y][x] = "";
+    protected void drawCharacter() {
+        gameGrid[z][y][x] = WallShades.values()[z].getSymbol();
+        colorGrid[z][y][x] = "";
         updatePosition();
-        GameArea.gameGrid[z][y][x] = symbol;
-        GameArea.colorGrid[z][y][x] = color;
+        gameGrid[z][y][x] = symbol;
+        colorGrid[z][y][x] = color;
     }
 
-    public void render() {
+    protected void render() {
         drawCharacter();
     }
 
-    public abstract void updatePosition();
+    protected abstract void updatePosition();
 }

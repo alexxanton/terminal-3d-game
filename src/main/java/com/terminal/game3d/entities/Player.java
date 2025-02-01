@@ -8,10 +8,6 @@ public class Player extends Entity {
     private final char BLOCK = '█';
     private final float JUMP_FORCE = 0.9f;
     private final float GRAVITY = 0.05f;
-    private int lateralMovement = 0;
-    private boolean isJumping = false;
-    private boolean isPlayer1;
-    private float verticalVelocity = 0;
     private final String UP_KEY = "w";
     private final String DOWN_KEY = "s";
     private final String LEFT_KEY;
@@ -19,6 +15,12 @@ public class Player extends Entity {
     private final String JUMP_KEY;
     private final String PLAYER_1_DIRECTIONS = "wasd ";
     private final String PLAYER_2_DIRECTIONS = "jkl";
+    
+    private int lateralMovement = 0;
+    private boolean isJumping = false;
+    private boolean isPlayer1;
+    private float verticalVelocity = 0;
+    private String currentDirection = Control.currentDirection;
     
     public Player(int x, int y, int z, boolean isPlayer1) {
         super(x, y, z);
@@ -39,31 +41,32 @@ public class Player extends Entity {
     }
 
     private void handleInput() {
-        if (Control.currentDirection.equals(LEFT_KEY)) {
+        if (currentDirection.equals(LEFT_KEY)) {
             if (lateralMovement < 10) {
                 lateralMovement += 10;
             }
-        } else if (Control.currentDirection.equals(RIGHT_KEY)) {
+        } else if (currentDirection.equals(RIGHT_KEY)) {
             if (lateralMovement > -10) {
                 lateralMovement += -10;
             }
-        } else if (Control.currentDirection.equals(UP_KEY)) {
+        } else if (currentDirection.equals(UP_KEY)) {
+            // GameArea.z_axis--;
             z--;
             if (z < 0) {
                 z = 0;
             }
-        } else if (Control.currentDirection.equals(DOWN_KEY)) {
+        } else if (currentDirection.equals(DOWN_KEY)) {
             z++;
             if (z > SCREEN_DEPTH - 1) {
                 z = SCREEN_DEPTH - 1;
             }
-        } else if (Control.currentDirection.equals(JUMP_KEY)) {
+        } else if (currentDirection.equals(JUMP_KEY)) {
             isJumping = true;
         }
 
-        if (isPlayer1 && PLAYER_1_DIRECTIONS.contains(Control.currentDirection)
-        || !isPlayer1 && PLAYER_2_DIRECTIONS.contains(Control.currentDirection)) {
-            Control.currentDirection = "";
+        if (isPlayer1 && PLAYER_1_DIRECTIONS.contains(currentDirection)
+        || !isPlayer1 && PLAYER_2_DIRECTIONS.contains(currentDirection)) {
+            currentDirection = "";
         }
     }
 

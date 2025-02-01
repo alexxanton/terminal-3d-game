@@ -9,6 +9,7 @@ import com.terminal.game3d.graphics.WallShades;
 public class GameArea {
     public static char[][][] gameGrid = new char[ScreenDimensions.SCREEN_DEPTH.getDimension()][ScreenDimensions.SCREEN_HEIGHT.getDimension()][ScreenDimensions.SCREEN_WIDTH.getDimension()];
     public static String[][][] colorGrid = new String[ScreenDimensions.SCREEN_DEPTH.getDimension()][ScreenDimensions.SCREEN_HEIGHT.getDimension()][ScreenDimensions.SCREEN_WIDTH.getDimension()];
+    public static int z_axis = 2;
     public Control control = new Control();
     public Player player = new Player(0, 0, 2, true);
     public Player player2 = new Player(10, 0, 2, false);
