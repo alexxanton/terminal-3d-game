@@ -66,20 +66,30 @@ public class Player extends Entity {
         }
     }
 
+    private boolean isOnGround() {
+        return y == SCREEN_HEIGHT - 1;
+    }
+
     @Override
     public void updatePosition() {
         if (lateralMovement > 0) {
             x--;
             lateralMovement--;
+            if (lateralMovement == 0 && !isOnGround()) {
+                lateralMovement = 10;
+            }
             x = Math.max(x, 0);
         } else if (lateralMovement < 0) {
             x++;
             lateralMovement++;
+            if (lateralMovement == 0 && !isOnGround()) {
+                lateralMovement = -10;
+            }
             x = Math.min(x, SCREEN_WIDTH - 1);
         }
 
         
-        if (isJumping && y == SCREEN_HEIGHT - 1) {
+        if (isJumping && isOnGround()) {
             verticalVelocity = JUMP_FORCE;
         }
 

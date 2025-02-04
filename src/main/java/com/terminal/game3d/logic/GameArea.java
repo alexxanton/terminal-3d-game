@@ -35,6 +35,10 @@ public class GameArea {
         player.start();
         player2.start();
         screen.start();
+        new Meteorite(10, 5, 0).start();
+        new Meteorite(10, 5, 1).start();
         new Meteorite(10, 5, 2).start();
+        new Meteorite(10, 5, 3).start();
+        new Meteorite(10, 5, 4).start();
     }
 }
