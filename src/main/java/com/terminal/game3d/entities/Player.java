@@ -3,8 +3,8 @@ package com.terminal.game3d.entities;
 import com.terminal.game3d.control.Control;
 
 public class Player extends Entity {
-    private final float JUMP_FORCE = 0.9f;
-    private final float GRAVITY = 0.05f;
+    private final int JUMP_FORCE = 2;
+    private final float GRAVITY = 0.17f;
     private final String UP_KEY = "w";
     private final String DOWN_KEY = "s";
     private final String LEFT_KEY;
