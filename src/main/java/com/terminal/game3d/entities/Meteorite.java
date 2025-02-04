@@ -1,5 +1,7 @@
 package com.terminal.game3d.entities;
 
+import com.terminal.game3d.graphics.WallShades;
+
 public class Meteorite extends Entity {
     private char[][][] meteorites = {
         {
@@ -35,27 +37,32 @@ public class Meteorite extends Entity {
             {' ','█','█','█','█','█','█',' '},
             {'█','█','█','█','█','█','█','█'},
             {'█','█','█','█','█','█','█','█'},
-            {'█','█','█','█','█','█','█','█'},
-            {'█','█','█','█','█','█','█','█'},
             {' ','█','█','█','█','█','█',' '},
             {' ',' ','█','█','█','█',' ',' '},
-        }
+        },
+        {
+            {' ',' ','█','█','█','█','█','█','█','█',' ',' '},
+            {' ','█','█','█','█','█','█','█','█','█','█',' '},
+            {'█','█','█','█','█','█','█','█','█','█','█','█'},
+            {'█','█','█','█','█','█','█','█','█','█','█','█'},
+            {'█','█','█','█','█','█','█','█','█','█','█','█'},
+            {'█','█','█','█','█','█','█','█','█','█','█','█'},
+            {' ','█','█','█','█','█','█','█','█','█','█',' '},
+            {' ',' ','█','█','█','█','█','█','█','█',' ',' '},
+        },
     };
 
     public Meteorite(int x, int y, int z) {
         super(x, y, z);
+        this.color = COLOR_RED;
+        this.symbol = BLOCK;
     }
-
-    @Override
-    public void run() {}
     
     @Override
-    public void render() {
-        for (int i = 0; i < meteorites[0].length; i++) {
-            for (int j = 0; j < meteorites[0][i].length; j++) {
-                drawCharacter();
-            }
-        }
+    public void renderEntity() {
+        drawCharacters(meteorites, 2, WallShades.values()[z].getSymbol(), "");
+        updatePosition();
+        drawCharacters(meteorites, 2, BLOCK, COLOR_RED);
     }
 
     @Override

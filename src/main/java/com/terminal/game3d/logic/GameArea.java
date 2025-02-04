@@ -1,14 +1,18 @@
 package com.terminal.game3d.logic;
 
 import com.terminal.game3d.control.Control;
+import com.terminal.game3d.entities.Meteorite;
 import com.terminal.game3d.entities.Player;
 import com.terminal.game3d.graphics.Screen;
 import com.terminal.game3d.graphics.ScreenDimensions;
 import com.terminal.game3d.graphics.WallShades;
 
 public class GameArea {
-    public static char[][][] gameGrid = new char[ScreenDimensions.SCREEN_DEPTH.getDimension()][ScreenDimensions.SCREEN_HEIGHT.getDimension()][ScreenDimensions.SCREEN_WIDTH.getDimension()];
-    public static String[][][] colorGrid = new String[ScreenDimensions.SCREEN_DEPTH.getDimension()][ScreenDimensions.SCREEN_HEIGHT.getDimension()][ScreenDimensions.SCREEN_WIDTH.getDimension()];
+    private static final int SCREEN_WIDTH = ScreenDimensions.SCREEN_WIDTH.getDimension();
+    private static final int SCREEN_HEIGHT = ScreenDimensions.SCREEN_HEIGHT.getDimension();
+    private static final int SCREEN_DEPTH = ScreenDimensions.SCREEN_DEPTH.getDimension();
+    public static char[][][] gameGrid = new char[SCREEN_DEPTH][SCREEN_HEIGHT][SCREEN_WIDTH];
+    public static String[][][] colorGrid = new String[SCREEN_DEPTH][SCREEN_HEIGHT][SCREEN_WIDTH];
     public static int z_axis = 2;
     public Control control = new Control();
     public Player player = new Player(0, 0, 2, true);
@@ -31,5 +35,6 @@ public class GameArea {
         player.start();
         player2.start();
         screen.start();
+        new Meteorite(10, 5, 2).start();
     }
 }

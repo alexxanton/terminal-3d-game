@@ -3,9 +3,6 @@ package com.terminal.game3d.entities;
 import com.terminal.game3d.control.Control;
 
 public class Player extends Entity {
-    private final String COLOR_RED = "\033[31m";
-    private final String COLOR_GREEN = "\033[32m";
-    private final char BLOCK = '█';
     private final float JUMP_FORCE = 0.9f;
     private final float GRAVITY = 0.05f;
     private final String UP_KEY = "w";
@@ -20,7 +17,6 @@ public class Player extends Entity {
     private boolean isJumping = false;
     private boolean isPlayer1;
     private float verticalVelocity = 0;
-    private String currentDirection = Control.currentDirection;
     
     public Player(int x, int y, int z, boolean isPlayer1) {
         super(x, y, z);
@@ -41,32 +37,32 @@ public class Player extends Entity {
     }
 
     private void handleInput() {
-        if (currentDirection.equals(LEFT_KEY)) {
+        if (Control.currentDirection.equals(LEFT_KEY)) {
             if (lateralMovement < 10) {
                 lateralMovement += 10;
             }
-        } else if (currentDirection.equals(RIGHT_KEY)) {
+        } else if (Control.currentDirection.equals(RIGHT_KEY)) {
             if (lateralMovement > -10) {
                 lateralMovement += -10;
             }
-        } else if (currentDirection.equals(UP_KEY)) {
+        } else if (Control.currentDirection.equals(UP_KEY)) {
             // GameArea.z_axis--;
             z--;
             if (z < 0) {
                 z = 0;
             }
-        } else if (currentDirection.equals(DOWN_KEY)) {
+        } else if (Control.currentDirection.equals(DOWN_KEY)) {
             z++;
             if (z > SCREEN_DEPTH - 1) {
                 z = SCREEN_DEPTH - 1;
             }
-        } else if (currentDirection.equals(JUMP_KEY)) {
+        } else if (Control.currentDirection.equals(JUMP_KEY)) {
             isJumping = true;
         }
 
-        if (isPlayer1 && PLAYER_1_DIRECTIONS.contains(currentDirection)
-        || !isPlayer1 && PLAYER_2_DIRECTIONS.contains(currentDirection)) {
-            currentDirection = "";
+        if (isPlayer1 && PLAYER_1_DIRECTIONS.contains(Control.currentDirection)
+        || !isPlayer1 && PLAYER_2_DIRECTIONS.contains(Control.currentDirection)) {
+            Control.currentDirection = "";
         }
     }
 

@@ -8,6 +8,9 @@ public abstract class Entity extends Thread {
     protected final int SCREEN_WIDTH = ScreenDimensions.SCREEN_WIDTH.getDimension();
     protected final int SCREEN_HEIGHT = ScreenDimensions.SCREEN_HEIGHT.getDimension();
     protected final int SCREEN_DEPTH = ScreenDimensions.SCREEN_DEPTH.getDimension();
+    protected final char BLOCK = '█';
+    protected final String COLOR_RED = "\033[31m";
+    protected final String COLOR_GREEN = "\033[32m";
     protected int z;
     protected int x;
     protected int y;
@@ -26,7 +29,7 @@ public abstract class Entity extends Thread {
     @Override
     public void run() {
         while (true) {
-            render();
+            renderEntity();
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {
@@ -47,16 +50,23 @@ public abstract class Entity extends Thread {
         return y;
     }
 
-    protected void drawCharacter() {
+    protected void renderEntity() {
         gameGrid[z][y][x] = WallShades.values()[z].getSymbol();
         colorGrid[z][y][x] = "";
         updatePosition();
         gameGrid[z][y][x] = symbol;
         colorGrid[z][y][x] = color;
     }
-
-    protected void render() {
-        drawCharacter();
+    
+    protected void drawCharacters(char[][][] entity, int section, char symbol, String color) {
+        for (int i = 0; i < entity[section].length; i++) {
+            for (int j = 0; j < entity[section][i].length; j++) {
+                if (entity[section][i][j] == BLOCK) {
+                    gameGrid[z][y + i][x + j] = symbol;
+                    colorGrid[z][y + i][x + j] = color;
+                }
+            }
+        }
     }
 
     protected abstract void updatePosition();
