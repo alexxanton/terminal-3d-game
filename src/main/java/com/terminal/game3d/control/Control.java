@@ -10,10 +10,11 @@ import org.jline.utils.NonBlockingReader;
 public class Control {
     private NonBlockingReader reader;
     private Thread inpuThread = new Thread(() -> getPressedKeys());
-    public static volatile String currentDirection = "";
+    private String currentKey = "";
+    public static volatile Control instance;
 
     
-    public Control() {
+    private Control() {
         try {
             Terminal terminal = TerminalBuilder.terminal();
             Runtime.getRuntime().addShutdownHook(new Thread(() -> showCursor(terminal)));
@@ -26,17 +27,25 @@ public class Control {
         }
     }
 
-    private static void hideCursor(Terminal terminal) {
+    public static Control getInstance() {
+        if (instance == null) {
+            instance = new Control();
+        }
+
+        return instance;
+    }
+
+    private void hideCursor(Terminal terminal) {
         terminal.writer().print("\033[?25l");
         terminal.writer().flush();
     }
 
-    private static void showCursor(Terminal terminal) {
+    private void showCursor(Terminal terminal) {
         terminal.writer().print("\033[?25h");
         terminal.writer().flush();
     }
 
-    public char readKeys() {
+    private char readKeys() {
         try {
             return (char) reader.read();
         } catch (IOException e) {
@@ -45,10 +54,22 @@ public class Control {
         }
     }
 
-    public void getPressedKeys() {
+    private void getPressedKeys() {
         while (true) {
             String key = Character.toString(readKeys());
-            currentDirection = key.toLowerCase();
+            currentKey = key.toLowerCase();
         }
+    }
+
+    public boolean isKeyPressed(String key) {
+        return currentKey.equals(key);
+    }
+
+    public boolean containsKey(String keys) {
+        return keys.contains(currentKey);
+    }
+
+    public void resetKeys() {
+        currentKey = "";
     }
 }

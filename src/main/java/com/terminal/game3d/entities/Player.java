@@ -10,9 +10,9 @@ public class Player extends Entity {
     private final String LEFT_KEY;
     private final String RIGHT_KEY;
     private final String JUMP_KEY;
-    private final String PLAYER_1_DIRECTIONS = "wasd ";
-    private final String PLAYER_2_DIRECTIONS = "jkl";
-    
+    private final String PLAYER_1_KEYS = "wasd ";
+    private final String PLAYER_2_KEYS = "jkl";
+    private Control control = Control.getInstance();
     private int lateralMovement = 0;
     private boolean isJumping = false;
     private boolean isPlayer1;
@@ -37,32 +37,32 @@ public class Player extends Entity {
     }
 
     private void handleInput() {
-        if (Control.currentDirection.equals(LEFT_KEY)) {
+        if (control.isKeyPressed(LEFT_KEY)) {
             if (lateralMovement < 10) {
                 lateralMovement += 10;
             }
-        } else if (Control.currentDirection.equals(RIGHT_KEY)) {
+        } else if (control.isKeyPressed(RIGHT_KEY)) {
             if (lateralMovement > -10) {
                 lateralMovement += -10;
             }
-        } else if (Control.currentDirection.equals(UP_KEY)) {
+        } else if (control.isKeyPressed(UP_KEY)) {
             // GameArea.z_axis--;
             z--;
             if (z < 0) {
                 z = 0;
             }
-        } else if (Control.currentDirection.equals(DOWN_KEY)) {
+        } else if (control.isKeyPressed(DOWN_KEY)) {
             z++;
             if (z > SCREEN_DEPTH - 1) {
                 z = SCREEN_DEPTH - 1;
             }
-        } else if (Control.currentDirection.equals(JUMP_KEY)) {
+        } else if (control.isKeyPressed(JUMP_KEY)) {
             isJumping = true;
         }
 
-        if (isPlayer1 && PLAYER_1_DIRECTIONS.contains(Control.currentDirection)
-        || !isPlayer1 && PLAYER_2_DIRECTIONS.contains(Control.currentDirection)) {
-            Control.currentDirection = "";
+        if (isPlayer1 && control.containsKey(PLAYER_1_KEYS)
+        || !isPlayer1 && control.containsKey(PLAYER_2_KEYS)) {
+            control.resetKeys();
         }
     }
 
