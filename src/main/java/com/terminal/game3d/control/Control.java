@@ -1,6 +1,7 @@
 package com.terminal.game3d.control;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
@@ -10,7 +11,7 @@ import org.jline.utils.NonBlockingReader;
 public class Control {
     private NonBlockingReader reader;
     private Thread inpuThread = new Thread(() -> getPressedKeys());
-    private String currentKey = "";
+    private ArrayList<String> currentKeys = new ArrayList<>();
     public static volatile Control instance;
 
     
@@ -57,19 +58,27 @@ public class Control {
     private void getPressedKeys() {
         while (true) {
             String key = Character.toString(readKeys());
-            currentKey = key.toLowerCase();
+            currentKeys.add(key.toLowerCase());
         }
     }
 
     public boolean isKeyPressed(String key) {
-        return currentKey.equals(key);
+        if (currentKeys.size() > 0) {
+            return currentKeys.get(0).equals(key);
+        }
+        return false;
     }
 
     public boolean containsKey(String keys) {
-        return keys.contains(currentKey);
+        if (currentKeys.size() > 0) {
+            return keys.contains(currentKeys.get(0));
+        }
+        return false;
     }
 
-    public void resetKeys() {
-        currentKey = "";
+    public void consumeKey() {
+        if (currentKeys.size() > 0) {
+            currentKeys.remove(0);
+        }
     }
 }

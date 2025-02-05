@@ -61,8 +61,9 @@ public class Player extends Entity {
         }
 
         if (isPlayer1 && control.containsKey(PLAYER_1_KEYS)
-        || !isPlayer1 && control.containsKey(PLAYER_2_KEYS)) {
-            control.resetKeys();
+        || !isPlayer1 && control.containsKey(PLAYER_2_KEYS)
+        || (!control.containsKey(PLAYER_1_KEYS) && !control.containsKey(PLAYER_2_KEYS))) {
+            control.consumeKey();
         }
     }
 
