@@ -64,14 +64,22 @@ public class Control {
 
     public boolean isKeyPressed(String key) {
         if (currentKeys.size() > 0) {
-            return currentKeys.get(0).equals(key);
+            try {
+                return currentKeys.get(0).equals(key);
+            } catch (NullPointerException e) {
+                return false;
+            }
         }
         return false;
     }
 
     public boolean containsKey(String keys) {
         if (currentKeys.size() > 0) {
-            return keys.contains(currentKeys.get(0));
+            try {
+                return keys.contains(currentKeys.get(0));
+            } catch (NullPointerException e) {
+                return false;
+            }
         }
         return false;
     }
