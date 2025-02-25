@@ -63,11 +63,13 @@ public class Control {
     }
 
     public boolean isKeyPressed(String key) {
-        if (currentKeys.size() > 0) {
-            try {
-                return currentKeys.get(0).equals(key);
-            } catch (NullPointerException e) {
-                return false;
+        synchronized (currentKeys) {
+            if (currentKeys.size() > 0) {
+                try {
+                    return currentKeys.get(0).equals(key);
+                } catch (NullPointerException e) {
+                    return false;
+                }
             }
         }
         return false;

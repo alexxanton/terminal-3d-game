@@ -58,10 +58,10 @@ public abstract class Entity extends Thread {
         colorGrid[z][y][x] = color;
     }
     
-    protected void render2DEntity(char[][][] entity, int section, char symbol, String color) {
-        for (int row = 0; row < entity[section].length; row++) {
-            for (int col = 0; col < entity[section][row].length; col++) {
-                if (entity[section][row][col] == BLOCK) {
+    protected void render2DEntity(char[][][] shape, int section, char symbol, String color) {
+        for (int row = 0; row < shape[section].length; row++) {
+            for (int col = 0; col < shape[section][row].length; col++) {
+                if (shape[section][row][col] == BLOCK) {
                     gameGrid[z][y + row][x + col] = symbol;
                     colorGrid[z][y + row][x + col] = color;
                 }
@@ -69,17 +69,21 @@ public abstract class Entity extends Thread {
         }
     }
 
-    protected void render3DEntity(char[][][] entity, char symbol, String color) {
-        for (int depth = 0; depth < entity.length; depth++) {
-            int center_y = Math.round(entity[depth].length) / 2;
-            
-            for (int row = 0; row < entity[depth].length; row++) {
-                int center_x = Math.round(entity[depth][row].length) / 2;
-                
-                for (int col = 0; col < entity[depth][row].length; col++) {
-                    if (entity[z + depth][row][col] == BLOCK) {
-                        gameGrid[z + depth][y - center_y + row][x - center_x + col] = symbol;
-                        colorGrid[z + depth][y - center_y + row][x - center_x + col] = color;
+    protected void render3DEntity(char[][][] shape, int[] sections, char symbol, String color) {
+        for (int depth = 0; depth < sections.length; depth++) {
+            int section = sections[depth];
+            int center_y = Math.round(shape[section].length) / 2;
+
+            for (int row = 0; row < shape[section].length; row++) {
+                int center_x = Math.round(shape[section][row].length) / 2;
+
+                for (int col = 0; col < shape[section][row].length; col++) {
+                    if (shape[z + section][row][col] == BLOCK) {
+                        try {
+                            gameGrid[z + depth][y - center_y + row][x - center_x + col] = symbol;
+                            colorGrid[z + depth][y - center_y + row][x - center_x + col] = color;
+                        } catch (IndexOutOfBoundsException e) {
+                        }
                     }
                 }
             }
