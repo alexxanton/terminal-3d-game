@@ -58,7 +58,7 @@ public abstract class Entity extends Thread {
         colorGrid[z][y][x] = color;
     }
     
-    protected void render2DEntity(char[][][] shape, int section, char symbol, String color) {
+    protected void draw2DShape(char[][][] shape, int section, char symbol, String color) {
         for (int row = 0; row < shape[section].length; row++) {
             for (int col = 0; col < shape[section][row].length; col++) {
                 if (shape[section][row][col] == BLOCK) {
@@ -69,7 +69,7 @@ public abstract class Entity extends Thread {
         }
     }
 
-    protected void render3DEntity(char[][][] shape, int[] sections, char symbol, String color) {
+    protected void draw3DShape(char[][][] shape, int[] sections, char symbol, String color) {
         for (int depth = 0; depth < sections.length; depth++) {
             int section = sections[depth];
             int center_y = Math.round(shape[section].length) / 2;
