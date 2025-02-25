@@ -74,11 +74,13 @@ public class Control {
     }
 
     public boolean containsKey(String keys) {
-        if (currentKeys.size() > 0) {
-            try {
-                return keys.contains(currentKeys.get(0));
-            } catch (NullPointerException e) {
-                return false;
+        synchronized (currentKeys) {
+            if (currentKeys.size() > 0) {
+                try {
+                    return keys.contains(currentKeys.get(0));
+                } catch (NullPointerException | IndexOutOfBoundsException e) {
+                    return false;
+                }
             }
         }
         return false;
