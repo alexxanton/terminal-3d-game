@@ -43,7 +43,7 @@ public class GameArea {
     private void gameLoop() {
         while (true) {
             int x = rand.nextInt(0, SCREEN_WIDTH);
-            int y = -8;
+            int y = 0;
             int z = rand.nextInt(0, 1);
             int delay = rand.nextInt(1, 3);
             new Meteorite(x, y, z).start();

@@ -51,12 +51,22 @@ public class Meteorite extends Entity {
         draw3DShape(METEORITE_SHAPES, variant, false, "");
         updatePosition();
         draw3DShape(METEORITE_SHAPES, variant, true, COLOR_RED);
+
+        if (y > SCREEN_HEIGHT) {
+            isAlive = false;
+            draw3DShape(METEORITE_SHAPES, variant, false, "");
+        }
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void updatePosition() {
         verticalVelocity -= GRAVITY;
         y -= Math.ceil(verticalVelocity);
-        y = Math.max(0, Math.min(y, SCREEN_HEIGHT - 1));
     }
 }

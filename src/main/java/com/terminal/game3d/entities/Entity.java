@@ -16,6 +16,7 @@ public abstract class Entity extends Thread {
     protected int x;
     protected int y;
     protected float verticalVelocity = 0;
+    protected boolean isAlive = true;
     protected char symbol;
     protected String color;
     private char[][][] gameGrid = GameArea.gameGrid;
@@ -30,7 +31,7 @@ public abstract class Entity extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+        while (isAlive) {
             renderEntity();
             try {
                 Thread.sleep(20);
