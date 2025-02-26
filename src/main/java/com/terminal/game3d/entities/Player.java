@@ -4,7 +4,6 @@ import com.terminal.game3d.control.Control;
 
 public class Player extends Entity {
     private final int JUMP_FORCE = 2;
-    private final float GRAVITY = 0.17f;
     private final String UP_KEY = "w";
     private final String DOWN_KEY = "s";
     private final String LEFT_KEY;
@@ -16,7 +15,6 @@ public class Player extends Entity {
     private int lateralMovement = 0;
     private boolean isJumping = false;
     private boolean isPlayer1;
-    private float verticalVelocity = 0;
     
     public Player(int x, int y, int z, boolean isPlayer1) {
         super(x, y, z);

@@ -11,9 +11,11 @@ public abstract class Entity extends Thread {
     protected final char BLOCK = '█';
     protected final String COLOR_RED = "\033[31m";
     protected final String COLOR_GREEN = "\033[32m";
+    protected final float GRAVITY = 0.17f;
     protected int z;
     protected int x;
     protected int y;
+    protected float verticalVelocity = 0;
     protected char symbol;
     protected String color;
     private char[][][] gameGrid = GameArea.gameGrid;
@@ -69,8 +71,9 @@ public abstract class Entity extends Thread {
         }
     }
 
-    protected void draw3DShape(char[][][] shape, int[] sections, char symbol, String color) {
+    protected void draw3DShape(char[][][] shape, int[] sections, boolean draw, String color) {
         for (int depth = 0; depth < sections.length; depth++) {
+            char symbol = draw ? BLOCK : WallShades.values()[depth].getSymbol();
             int section = sections[depth];
             int center_y = shape[section].length / 2;
 
@@ -81,7 +84,7 @@ public abstract class Entity extends Thread {
                     int draw_x = x - center_x + col;
                     int draw_y = y - center_y + row;
                     int draw_z = z + depth;
-                    
+
                     if (shape[section][row][col] == BLOCK && !outOfBounds(draw_x, draw_y, draw_z)) {
                         gameGrid[draw_z][draw_y][draw_x] = symbol;
                         colorGrid[draw_z][draw_y][draw_x] = color;

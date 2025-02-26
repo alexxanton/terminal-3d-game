@@ -2,8 +2,6 @@ package com.terminal.game3d.entities;
 
 import java.util.Random;
 
-import com.terminal.game3d.graphics.WallShades;
-
 public class Meteorite extends Entity {
     private final char[][][] METEORITE_SHAPES = {
         {
@@ -50,12 +48,15 @@ public class Meteorite extends Entity {
     
     @Override
     public void renderEntity() {
-        draw3DShape(METEORITE_SHAPES, variant, WallShades.values()[z].getSymbol(), "");
+        draw3DShape(METEORITE_SHAPES, variant, false, "");
         updatePosition();
-        draw3DShape(METEORITE_SHAPES, variant, BLOCK, COLOR_RED);
+        draw3DShape(METEORITE_SHAPES, variant, true, COLOR_RED);
     }
 
     @Override
     public void updatePosition() {
+        verticalVelocity -= GRAVITY;
+        y -= Math.ceil(verticalVelocity);
+        y = Math.max(0, Math.min(y, SCREEN_HEIGHT - 1));
     }
 }
