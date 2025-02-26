@@ -1,5 +1,8 @@
 package com.terminal.game3d.logic;
 
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 import com.terminal.game3d.entities.Meteorite;
 import com.terminal.game3d.entities.Player;
 import com.terminal.game3d.graphics.Screen;
@@ -16,6 +19,7 @@ public class GameArea {
     public Player player = new Player(0, 0, 2, true);
     public Player player2 = new Player(10, 0, 2, false);
     public Screen screen = new Screen(gameGrid, colorGrid, player);
+    private Random rand = new Random();
 
     
     public GameArea() {
@@ -33,6 +37,22 @@ public class GameArea {
         player.start();
         player2.start();
         screen.start();
-        new Meteorite(10, 5, 0).start();
+        gameLoop();
+    }
+
+    private void gameLoop() {
+        while (true) {
+            int x = rand.nextInt(0, SCREEN_WIDTH);
+            int y = rand.nextInt(0, SCREEN_HEIGHT);
+            int z = rand.nextInt(0, SCREEN_DEPTH);
+            int delay = rand.nextInt(1, 3);
+            new Meteorite(x, y, z).start();
+
+            try {
+                TimeUnit.SECONDS.sleep(delay);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 import com.terminal.game3d.graphics.WallShades;
 
 public class Meteorite extends Entity {
-    private char[][][] meteoriteShapes = {
+    private final char[][][] METEORITE_SHAPES = {
         {
             {' ','█','█','█','█',' '},
             {'█','█','█','█','█','█'},
@@ -32,7 +32,7 @@ public class Meteorite extends Entity {
         },
     };
 
-    private int[][] meteoriteVariants = {
+    private final int[][] METEORITE_VARIANTS = {
         {0},
         {0, 1, 0},
         {0, 1, 2, 1, 0}
@@ -45,14 +45,14 @@ public class Meteorite extends Entity {
         super(x, y, z);
         this.color = COLOR_RED;
         this.symbol = BLOCK;
-        this.variant = meteoriteVariants[rand.nextInt(0, meteoriteVariants.length)];
+        this.variant = METEORITE_VARIANTS[rand.nextInt(0, METEORITE_VARIANTS.length)];
     }
     
     @Override
     public void renderEntity() {
-        draw3DShape(meteoriteShapes, variant, WallShades.values()[z].getSymbol(), "");
+        draw3DShape(METEORITE_SHAPES, variant, WallShades.values()[z].getSymbol(), "");
         updatePosition();
-        draw3DShape(meteoriteShapes, variant, BLOCK, COLOR_RED);
+        draw3DShape(METEORITE_SHAPES, variant, BLOCK, COLOR_RED);
     }
 
     @Override

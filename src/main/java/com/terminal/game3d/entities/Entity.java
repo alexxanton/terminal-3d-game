@@ -72,22 +72,31 @@ public abstract class Entity extends Thread {
     protected void draw3DShape(char[][][] shape, int[] sections, char symbol, String color) {
         for (int depth = 0; depth < sections.length; depth++) {
             int section = sections[depth];
-            int center_y = Math.round(shape[section].length) / 2;
+            int center_y = shape[section].length / 2;
 
             for (int row = 0; row < shape[section].length; row++) {
-                int center_x = Math.round(shape[section][row].length) / 2;
+                int center_x = shape[section][row].length / 2;
 
                 for (int col = 0; col < shape[section][row].length; col++) {
-                    if (shape[z + section][row][col] == BLOCK) {
-                        try {
-                            gameGrid[z + depth][y - center_y + row][x - center_x + col] = symbol;
-                            colorGrid[z + depth][y - center_y + row][x - center_x + col] = color;
-                        } catch (IndexOutOfBoundsException e) {
-                        }
+                    int draw_x = x - center_x + col;
+                    int draw_y = y - center_y + row;
+                    int draw_z = z + depth;
+                    
+                    if (shape[section][row][col] == BLOCK && !outOfBounds(draw_x, draw_y, draw_z)) {
+                        gameGrid[draw_z][draw_y][draw_x] = symbol;
+                        colorGrid[draw_z][draw_y][draw_x] = color;
                     }
                 }
             }
         }
+    }
+
+    private boolean outOfBounds(int x, int y, int z) {
+        return (
+            z < 0 || z > SCREEN_DEPTH - 1 ||
+            x < 0 || x > SCREEN_WIDTH - 1 ||
+            y < 0 || y > SCREEN_HEIGHT - 1
+        );
     }
 
     protected abstract void updatePosition();
