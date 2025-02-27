@@ -2,6 +2,8 @@ package com.terminal.game3d.entities;
 
 import java.util.Random;
 
+import com.terminal.game3d.graphics.Colors;
+
 public class Meteorite extends Entity {
     private final char[][][] METEORITE_SHAPES = {
         {
@@ -41,7 +43,7 @@ public class Meteorite extends Entity {
 
     public Meteorite(int x, int y, int z) {
         super(x, y, z);
-        this.color = COLOR_RED;
+        this.color = Colors.values()[rand.nextInt(0, Colors.values().length)].getColor();
         this.symbol = BLOCK;
         this.variant = METEORITE_VARIANTS[rand.nextInt(0, METEORITE_VARIANTS.length)];
     }
@@ -50,7 +52,7 @@ public class Meteorite extends Entity {
     public void renderEntity() {
         draw3DShape(METEORITE_SHAPES, variant, false, "");
         updatePosition();
-        draw3DShape(METEORITE_SHAPES, variant, true, COLOR_RED);
+        draw3DShape(METEORITE_SHAPES, variant, true, color);
 
         if (y > SCREEN_HEIGHT) {
             isAlive = false;

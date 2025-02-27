@@ -7,7 +7,6 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 import org.jline.utils.NonBlockingReader;
 
-
 public class Control {
     private NonBlockingReader reader;
     private Thread inpuThread = new Thread(() -> getPressedKeys());
@@ -89,8 +88,14 @@ public class Control {
     }
 
     public void consumeKey() {
-        if (currentKeys.size() > 0) {
-            currentKeys.remove(0);
+        synchronized (currentKeys) {
+            if (currentKeys.size() > 0) {
+                try {
+                    currentKeys.remove(0);
+                } catch (NullPointerException | IndexOutOfBoundsException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

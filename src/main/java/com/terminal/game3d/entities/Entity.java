@@ -1,5 +1,6 @@
 package com.terminal.game3d.entities;
 
+import com.terminal.game3d.graphics.Colors;
 import com.terminal.game3d.graphics.ScreenDimensions;
 import com.terminal.game3d.graphics.WallShades;
 import com.terminal.game3d.logic.GameArea;
@@ -8,9 +9,9 @@ public abstract class Entity extends Thread {
     protected final int SCREEN_WIDTH = ScreenDimensions.SCREEN_WIDTH.getDimension();
     protected final int SCREEN_HEIGHT = ScreenDimensions.SCREEN_HEIGHT.getDimension();
     protected final int SCREEN_DEPTH = ScreenDimensions.SCREEN_DEPTH.getDimension();
+    protected final String COLOR_RED = Colors.COLOR_RED.getColor();
+    protected final String COLOR_GREEN = Colors.COLOR_GREEN.getColor();
     protected final char BLOCK = '█';
-    protected final String COLOR_RED = "\033[31m";
-    protected final String COLOR_GREEN = "\033[32m";
     protected final float GRAVITY = 0.17f;
     protected int z;
     protected int x;
@@ -89,6 +90,8 @@ public abstract class Entity extends Thread {
                     if (shape[section][row][col] == BLOCK && !outOfBounds(draw_x, draw_y, draw_z)) {
                         gameGrid[draw_z][draw_y][draw_x] = symbol;
                         colorGrid[draw_z][draw_y][draw_x] = color;
+                        colorGrid[draw_z + (draw_z < SCREEN_DEPTH - 1 ? 1 : 0)][draw_y][draw_x] = color;
+                        colorGrid[draw_z - (draw_z > 0 ? 1 : 0)][draw_y][draw_x] = color;
                     }
                 }
             }

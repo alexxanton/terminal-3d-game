@@ -11,7 +11,7 @@ public class Screen extends Thread {
     private final String FLOOR = "║ \033[32m" + "█".repeat(SCREEN_WIDTH) + "\033[0m ║\n";
     private final String BOTTOM_BORDER = "╚" + "═".repeat(SCREEN_WIDTH + 2) + "╝";
     private StringBuilder screenBuilder = new StringBuilder("");
-    private final String[] WALL_COLORS = {"\033[46m", "\033[36m\033[44m", "\033[44m"};
+    private final String[] WALL_COLORS = {"\033[36m\033[46m", "\033[36m\033[44m", "\033[34m\033[44m"};
 
     
     public Screen(char[][][] gameGrid, String[][][] colorGrid, Player player) {

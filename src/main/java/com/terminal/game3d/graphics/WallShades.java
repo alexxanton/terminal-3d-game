@@ -1,11 +1,11 @@
 package com.terminal.game3d.graphics;
 
 public enum WallShades {
-    BACK_SHADE(' '),
+    BACK_SHADE('░'),
     DARK_SHADE('▓'),
     MEDIUM_SHADE('▒'),
     LIGHT_SHADE('░'),
-    FRONT_SHADE(' ');
+    FRONT_SHADE('▓');
 
     private final char symbol;
 
