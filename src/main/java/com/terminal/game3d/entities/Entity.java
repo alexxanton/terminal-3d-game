@@ -1,5 +1,7 @@
 package com.terminal.game3d.entities;
 
+import java.util.List;
+
 import com.terminal.game3d.graphics.Colors;
 import com.terminal.game3d.graphics.ScreenDimensions;
 import com.terminal.game3d.graphics.WallShades;
@@ -22,6 +24,7 @@ public abstract class Entity extends Thread {
     protected String color;
     private char[][][] gameGrid = GameArea.gameGrid;
     private String[][][] colorGrid = GameArea.colorGrid;
+    static List<Entity> collideableEntities = GameArea.collideableEntities;
 
 
     public Entity(int x, int y, int z) {
@@ -96,6 +99,22 @@ public abstract class Entity extends Thread {
                 }
             }
         }
+    }
+
+    protected boolean isColliding() {
+        for (Entity entity : collideableEntities) {
+            // if (this.x > entity.x - 5
+            // && this.x < entity.x + 5
+            // && this.y > entity.y - 5
+            // && this.y < entity.y + 5
+            // // && this.z > entity.z - 5
+            // // && this.z < entity.z + 5
+            // ) {
+            //     return true;
+            // }
+        }
+
+        return false;
     }
 
     private boolean outOfBounds(int x, int y, int z) {

@@ -100,6 +100,10 @@ public class Player extends Entity {
         y -= Math.ceil(verticalVelocity);
         y = Math.max(0, Math.min(y, SCREEN_HEIGHT - 1));
 
+        if (isColliding()) {
+            System.exit(0);
+        }
+
         handleInput();
     }
 }

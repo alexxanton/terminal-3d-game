@@ -46,6 +46,7 @@ public class Meteorite extends Entity {
         this.color = Colors.values()[rand.nextInt(0, Colors.values().length)].getColor();
         this.symbol = BLOCK;
         this.variant = METEORITE_VARIANTS[rand.nextInt(0, METEORITE_VARIANTS.length)];
+        this.start();
     }
     
     @Override
